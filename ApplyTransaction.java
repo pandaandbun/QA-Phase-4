@@ -29,7 +29,7 @@ public class ApplyTransaction {
             String transName = mergedTransactions.get(i).substring(3, 23);
             String transAccNum = mergedTransactions.get(i).substring(24, 29);
             float transBalance = Float.parseFloat(mergedTransactions.get(i).substring(30, 38));
-            // String transMisc = mergedTransactions.get(i).substring(39, 41);
+            String transMisc = mergedTransactions.get(i).substring(39, 41);
 
             // Skip end of line
             if (transAccNum.equals("00000")) {
@@ -42,7 +42,9 @@ public class ApplyTransaction {
                 // add new acc to list
                 String bankStatus = "A";
                 String bankBalanceString = mergedTransactions.get(i).substring(30, 38);
-                String newBankAcc = transAccNum + " " + transName + " " + bankStatus + " " + bankBalanceString;
+                String bankNumOfTransString = "000";
+                String newBankAcc = transAccNum + " " + transName + " " + bankStatus + " " + bankBalanceString + " "
+                        + bankNumOfTransString;
 
                 // Validate the new account follow constraints
                 boolean bankAccPassed = validateConstraints.validateCreate(newBankAcc, oldMasterBankAccs);
@@ -65,16 +67,24 @@ public class ApplyTransaction {
                     String bankName = oldMasterBankAccs.get(j).substring(6, 26);
                     String bankStatus = oldMasterBankAccs.get(j).substring(27, 28);
                     float bankBalance = Float.parseFloat(oldMasterBankAccs.get(j).substring(29, 37));
+                    int bankNumOfTrans = Integer.parseInt(oldMasterBankAccs.get(j).substring(38, 41));
 
                     // Get the type of transaction
                     String transCodeString = transactionCodes.getCodeDesString(transCode);
 
                     // The actual application
-                    if (transCodeString.equals("Paybill") || transCodeString.equals("Withdrawal")
-                            || transCodeString.equals("Transfer")) {
+                    if (transCodeString.equals("Paybill") || transCodeString.equals("Withdrawal")) {
                         bankBalance -= transBalance;
                     } else if (transCodeString.equals("Deposit")) {
                         bankBalance += transBalance;
+                    } else if (transCodeString.equals("Transfer")) {
+                        if (transMisc.equals("CR")) {
+                            bankBalance -= transBalance;
+                        } else if (transMisc.equals("DR")) {
+                            bankBalance += transBalance;
+                        } else {
+                            System.err.println("ERROR - TRANSFER - SOMETHING WRONG HERE");
+                        }
                     } else if (transCodeString.equals("Disable")) {
                         bankStatus = "D";
                     } else if (transCodeString.equals("Delete")) {
@@ -85,9 +95,16 @@ public class ApplyTransaction {
                         break;
                     }
 
+                    // Update number of transaction and daily fee
+                    bankNumOfTrans += 1;
+                    // Non student plan
+                    bankBalance -= 0.10; 
+
                     // update bank acc
                     String bankBalanceString = String.format("%8.2f", bankBalance).replace(' ', '0');
-                    String newBankAcc = bankAccNum + " " + bankName + " " + bankStatus + " " + bankBalanceString;
+                    String bankNumOfTransString = String.format("%3s", bankNumOfTrans).replace(' ', '0');
+                    String newBankAcc = bankAccNum + " " + bankName + " " + bankStatus + " " + bankBalanceString + " "
+                            + bankNumOfTransString;
 
                     // Validate that the update follow constraints
                     boolean bankAccPassed = validateConstraints.validateBalance(newBankAcc);
