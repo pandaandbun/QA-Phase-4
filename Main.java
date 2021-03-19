@@ -27,6 +27,9 @@ public class Main {
 
         System.out.println(newMasterBankAccs);
 
+        ExportMaster export = new ExportMaster();
+        export.Export(newMasterBankAccs);
+
     }
 
 }
