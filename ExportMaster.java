@@ -3,6 +3,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /*
 Master File Account Files (42 chars + newline)
@@ -23,17 +25,22 @@ Same as master but without TTTT
 public class ExportMaster{
     private BufferedWriter out;
     private ArrayList<String> merged_transactions;
+    private String dateTime;
 
     public ExportMaster(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
+        this.dateTime = localDateTime.format(dtf);
         CreateMasterAndCurrentBankAccountFile();
     }
 
     private Boolean CreateMasterAndCurrentBankAccountFile() {
+        
         try {
-            File f = new File("NewMasterFile.txt");
+            File f = new File("currentmasterfile"+dateTime+".txt");
             f.createNewFile();
 
-            File file = new File("NewCurrentBankAccountFile.txt");
+            File file = new File("currentbankaccountfile"+dateTime+".txt");
             file.createNewFile();
             
         } catch (IOException e){
@@ -48,7 +55,7 @@ public class ExportMaster{
     Without overwriting the previous file. The old master bank
     account file will be retained 
     (the name will have ".old" appended to the end),
-    and the new one will have the time and date it was created
+    and the new one will have the date it was created
     appended to the end of the filename.
     (In other words, it creates the current bank account file)
     */
@@ -57,7 +64,7 @@ public class ExportMaster{
 
         //Master File
         try{
-            out = new BufferedWriter(new FileWriter("NewMasterFile.txt"));
+            out = new BufferedWriter(new FileWriter("currentmasterfile"+this.dateTime+".txt"));
             for (String s: merged_transactions){
                 out.write(s+"\n");
                 out.flush();
@@ -76,7 +83,7 @@ public class ExportMaster{
 
         //Bank Account File
         try{
-            out = new BufferedWriter(new FileWriter("NewCurrentBankAccountFile.txt"));
+            out = new BufferedWriter(new FileWriter("currentbankaccountfile"+dateTime+".txt"));
             for (String s: merged_transactions){
                 out.write(s.substring(0,s.length()-4)+"\n");
                 out.flush();
