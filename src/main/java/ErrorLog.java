@@ -14,8 +14,7 @@ public class ErrorLog {
     private PrintWriter outErr;
 
     public ErrorLog() {
-        // LocalDate date = LocalDate.now(); // Gets current date
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Formatter for the date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Formatter for the date
         String outFile = String.format("%s%s%s", "err-log-", formatter.format(LocalDate.now()), ".log");
 
         try {
@@ -29,11 +28,12 @@ public class ErrorLog {
     public void LogError(String errCode, String errString) {
         System.err.println(errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
         outErr.println(errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
+        outErr.flush();
     }
 
     // Log exception to console and file (WIP)
     public void LogException(Exception ex) {
-        System.err.println(ErrorType.FATAL.name());
+        System.err.println(ErrorType.FATAL.name());    LocalDate date = LocalDate.now(); // Gets current date
         ex.printStackTrace();
         outErr.println(ErrorType.FATAL.name());
         // Also save the exception to a file
