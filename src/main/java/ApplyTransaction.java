@@ -70,7 +70,7 @@ public class ApplyTransaction {
                     int bankNumOfTrans = Integer.parseInt(oldMasterBankAccs.get(j).substring(38, 41));
 
                     // Get the type of transaction
-                    String transCodeString = transactionCodes.getCodeDesString(transCode);
+                    String transCodeString = transactionCodes.getCodeDescString(transCode);
 
                     // The actual application
                     if (transCodeString.equals("Paybill") || transCodeString.equals("Withdrawal")) {

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 // E - Deleted
 
 public class Main {
-
     public static void main(String[] args) {
         // Old Master bank acc
         ArrayList<String> oldMasterBankAccs = new ArrayList<String>();

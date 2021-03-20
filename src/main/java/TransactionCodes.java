@@ -19,8 +19,8 @@ public class TransactionCodes {
         transactions.put("00", "End of Session");
     }
 
-    // Get the description
-    public String getCodeDesString(String code) {
+    // Get a description that corresponds to the error code
+    public String getCodeDescString(String code) {
         return transactions.get(code);
     }
 }
