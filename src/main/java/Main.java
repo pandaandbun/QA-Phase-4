@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-
         // Old Master bank acc
         ArrayList<String> oldMasterBankAccs = new ArrayList<String>();
         oldMasterBankAccs.add("12345 John Smith           A 26648.26 001");
