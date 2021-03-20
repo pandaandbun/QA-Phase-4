@@ -6,11 +6,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ErrorLog {
-    enum ErrorType {CONSTRAINT, FATAL};
-    private TransactionCodes transactionCodes;
+    enum ErrorType {
+        CONSTRAINT, FATAL
+    };
+
+    private TransactionCodes transactionCodes = new TransactionCodes();
     private PrintWriter outErr;
+
     public ErrorLog() {
-        LocalDate date = LocalDate.now(); // Gets current date
+        // LocalDate date = LocalDate.now(); // Gets current date
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy"); // Formatter for the date
         String outFile = String.format("%s-%s", "err-log-", formatter.format(LocalDate.now()));
 
@@ -28,8 +32,7 @@ public class ErrorLog {
     }
 
     // Log exception to console and file (WIP)
-    public void LogException(Exception ex)
-    {
+    public void LogException(Exception ex) {
         System.err.println(ErrorType.FATAL.name());
         outErr.println(ErrorType.FATAL.name());
         ex.printStackTrace();

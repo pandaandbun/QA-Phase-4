@@ -1,3 +1,5 @@
+masterbankaccountfile[0-9]*-[0-9]*-[0-9]*.txt
+currentbankaccountfile[0-9]*-[0-9]*-[0-9]*.txt
 
 # Created by https://www.toptal.com/developers/gitignore/api/java,gradle,intellij,vscode,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,intellij,vscode,eclipse

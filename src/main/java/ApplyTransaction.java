@@ -10,6 +10,7 @@ public class ApplyTransaction {
     // Validation and transaction codes class
     private ValidateConstraints validateConstraints = new ValidateConstraints();
     private TransactionCodes transactionCodes = new TransactionCodes();
+    private ErrorLog errorLog = new ErrorLog();
 
     // Constructor
     public ApplyTransaction(ArrayList<String> oldMasterBankAccs, ArrayList<String> mergedTransactions) {
@@ -47,7 +48,7 @@ public class ApplyTransaction {
                         + bankNumOfTransString;
 
                 // Validate the new account follow constraints
-                boolean bankAccPassed = validateConstraints.validateCreate(newBankAcc, oldMasterBankAccs);
+                boolean bankAccPassed = validateConstraints.validateCreate(transCode, newBankAcc, oldMasterBankAccs);
                 if (bankAccPassed) {
                     oldMasterBankAccs.add(newBankAcc);
                 }
@@ -83,7 +84,7 @@ public class ApplyTransaction {
                         } else if (transMisc.equals("DR")) {
                             bankBalance += transBalance;
                         } else {
-                            System.err.println("ERROR - TRANSFER - SOMETHING WRONG HERE");
+                            errorLog.LogError(transCode, "Something wrong with CR/DR");
                         }
                     } else if (transCodeString.equals("Disable")) {
                         bankStatus = "D";
@@ -92,7 +93,8 @@ public class ApplyTransaction {
                         // break;
                         bankStatus = "E";
                     } else {
-                        System.out.println("ERROR - SOMETHING WRONG HERE");
+                        // System.out.println("ERROR - SOMETHING WRONG HERE");
+                        errorLog.LogError(transCode, "Transaction type cant be read");
                         break;
                     }
 
@@ -114,7 +116,7 @@ public class ApplyTransaction {
                             + bankNumOfTransString;
 
                     // Validate that the update follow constraints
-                    boolean bankAccPassed = validateConstraints.validateBalance(newBankAcc);
+                    boolean bankAccPassed = validateConstraints.validateBalance(transCode, newBankAcc);
                     if (bankAccPassed) {
                         oldMasterBankAccs.set(j, newBankAcc);
                     }
