@@ -1,32 +1,32 @@
 12345 John Smith           A 26648.26 001
 56789 John                 A 09714.00 020
-54321 Major Cream          A 48566.00 005
+54321 Major Cream          B 48566.00 005
 00360 Three Discovery      D 16099.71 005
 05996 Modern Skyline       A 97806.12 000
 07298 Tilted Horsemen      A 83811.16 010
 05346 Ancient Sisters      D 89885.37 020
-09462 Brothers Face        D 46667.08 000
+09462 Brothers Face        E 46667.08 000
 00853 Spurned Widow        D 12305.67 005
 09047 Sticky Boys          D 34810.10 012
 05274 Sleazy Pain          A 23796.87 005
-04210 Flying Attraction    D 17805.52 012
+04210 Flying Attraction    C 17805.52 012
 07403 Empty Surgery        D 40619.75 000
-04514 Daily Vengeance      D 10156.54 000
+04514 Daily Vengeance      C 10156.54 000
 07217 Ancient Division     D 30559.08 020
 03239 Violent Meeks        A 60276.61 000
 04500 Five Behaviour       A 43024.50 010
-02993 Disturbed School     D 25689.16 000
+02993 Disturbed School     B 25689.16 000
 03000 Green Men            D 86278.36 010
 07494 Quick Meeks          A 24898.98 000
-05991 Abusive Generator    D 40567.34 001
-01527 Sacrifice Division   A 90050.03 012
+05991 Abusive Generator    E 40567.34 001
+01527 Sacrifice Division   D 90050.03 012
 01262 Ty Shaffer           D 63660.21 020
 00361 George Ty            A 39154.94 001
-08478 George Wagner        D 36736.70 000
+08478 George Wagner        E 36736.70 000
 04820 Jack                 A 17000.76 005
 07887 Mark                 D 11643.78 000
-04251 Moore                A 50056.23 005
-05029 Reardon              D 23895.80 020
+04251 Moore                E 50056.23 005
+05029 Reardon              B 23895.80 020
 60001 Gone Once            A 00000.00 000
 60002 Gone Twice           A 10000.00 005
 60003 Gone Thrice          A 00000.00 000

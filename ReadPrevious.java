@@ -15,7 +15,7 @@ public class ReadPrevious {
 	public void ReadFile() {
 		  try {
 		   String strCurrentLine;
-		   bufferReader = new BufferedReader(new FileReader("currentbankaccountfile.txt"));
+		   bufferReader = new BufferedReader(new FileReader("masterbankaccountfile.txt"));
 
 		   while ((strCurrentLine = bufferReader.readLine()) != null) {
 		    System.out.println(strCurrentLine);

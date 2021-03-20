@@ -88,8 +88,9 @@ public class ApplyTransaction {
                     } else if (transCodeString.equals("Disable")) {
                         bankStatus = "D";
                     } else if (transCodeString.equals("Delete")) {
-                        mergedTransactions.remove(i);
-                        break;
+                        // mergedTransactions.remove(i);
+                        // break;
+                        bankStatus = "E";
                     } else {
                         System.out.println("ERROR - SOMETHING WRONG HERE");
                         break;
@@ -97,8 +98,14 @@ public class ApplyTransaction {
 
                     // Update number of transaction and daily fee
                     bankNumOfTrans += 1;
+                    // Student Plan
+                    if (bankStatus.equals("A")) {
+                        bankBalance -= 0.05;
+                    }
                     // Non student plan
-                    bankBalance -= 0.10; 
+                    else if (bankStatus.equals("B")) {
+                        bankBalance -= 0.10;
+                    }
 
                     // update bank acc
                     String bankBalanceString = String.format("%8.2f", bankBalance).replace(' ', '0');
