@@ -1,6 +1,7 @@
 12345 John Smith           A 26648.26 001
 56789 John                 A 09714.00 020
 54321 Major Cream          B 48566.00 005
+54320 Test Constraint      B 00001.00 000
 00360 Three Discovery      D 16099.71 005
 05996 Modern Skyline       A 97806.12 000
 07298 Tilted Horsemen      A 83811.16 010

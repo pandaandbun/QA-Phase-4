@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 // Combine merged transaction with old master bank account balance
 public class ApplyTransaction {
@@ -39,23 +40,43 @@ public class ApplyTransaction {
 
             // to deal with transaction CREATE
             if (transCode.equals("05")) {
-
-                // add new acc to list
-                String bankStatus = "A";
-                String bankBalanceString = mergedTransactions.get(i).substring(30, 38);
-                String bankNumOfTransString = "000";
-                String newBankAcc = transAccNum + " " + transName + " " + bankStatus + " " + bankBalanceString + " "
-                        + bankNumOfTransString;
-
-                // Validate the new account follow constraints
-                boolean bankAccPassed = validateConstraints.validateCreate(transCode, newBankAcc, oldMasterBankAccs);
-                if (bankAccPassed) {
-                    oldMasterBankAccs.add(newBankAcc);
-                }
-
+                createBankAcc(transCode, transName, transAccNum, transMisc, mergedTransactions.get(i));
                 continue;
             }
 
+            // Find Bank Accounts
+            findBankAcc(transCode, transName, transAccNum, transBalance, transMisc);
+        }
+
+        // sort bank accounts
+        sortBankAcc();
+
+        // return updated bank acc list
+        return oldMasterBankAccs;
+    }
+
+    // Create New Account
+    private void createBankAcc(String transCode, String transName, String transAccNum, String transMisc,
+            String transaction) {
+        // add new acc to list
+        String bankStatus = "A";
+        String bankBalanceString = transaction.substring(30, 38);
+        String bankNumOfTransString = "000";
+        String newBankAcc = transAccNum + " " + transName + " " + bankStatus + " " + bankBalanceString + " "
+                + bankNumOfTransString;
+
+        // Validate the new account follow constraints
+        boolean bankAccPassed = validateConstraints.validateCreate(transCode, newBankAcc, oldMasterBankAccs);
+        if (bankAccPassed) {
+            oldMasterBankAccs.add(0, newBankAcc);
+        }
+    }
+
+    // Find Bank Account that match with the transaction
+    private void findBankAcc(String transCode, String transName, String transAccNum, float transBalance,
+            String transMisc) {
+        // Loop until bank account is found
+        bankAccFound: {
             // Old master bank account
             for (int j = 0; j < oldMasterBankAccs.size(); j++) {
 
@@ -121,12 +142,20 @@ public class ApplyTransaction {
                         oldMasterBankAccs.set(j, newBankAcc);
                     }
 
-                    break;
+                    break bankAccFound;
                 }
             }
-        }
 
-        // return updated bank acc list
-        return oldMasterBankAccs;
+            // If code reach this point, the account was not found
+            errorLog.LogError(transCode, "Account " + transAccNum + " Was Not Found");
+        }
+    }
+
+    // Sort bank accs
+    // Add end of file line to master list
+    private void sortBankAcc() {
+        Collections.sort(oldMasterBankAccs);
+        String endOfFile = "00000 END OF FILE          D 00000.00 000";
+        oldMasterBankAccs.add(endOfFile);
     }
 }

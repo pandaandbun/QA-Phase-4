@@ -33,7 +33,8 @@ public class ErrorLog {
 
     // Log exception to console and file (WIP)
     public void LogException(Exception ex) {
-        System.err.println(ErrorType.FATAL.name());    LocalDate date = LocalDate.now(); // Gets current date
+        System.err.println(ErrorType.FATAL.name());
+        // LocalDate date = LocalDate.now(); // Gets current date
         ex.printStackTrace();
         outErr.println(ErrorType.FATAL.name());
         // Also save the exception to a file

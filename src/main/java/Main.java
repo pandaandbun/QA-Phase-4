@@ -1,5 +1,24 @@
 import java.util.ArrayList;
 
+// To run:
+// ./gradlew clean      ----> clean the folder
+// ./gradlew build      ----> compile
+// ./gradlew run        ----> run the code
+
+// Input:
+// masterbankaccountfile.txt
+// mergedtransactionsfile.txt
+
+// Output (Examples):
+// masterbankaccountfile2021-03-21.txt
+// currentbankaccountfile2021-03-21.txt
+
+// Overall steps:
+// 1. Read the input files
+// 2. Apply transactions onto bank acc + daily fees
+// 3. Create new output files with the changed array
+
+// Status code definition for Master Bank Accounts;
 // A - Active Student
 // B - Active Non-student
 // C - Disable Student
@@ -8,29 +27,20 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+
+        // Read Previous Files
+        ReadPrevious readPrevious = new ReadPrevious();
         // Old Master bank acc
-        ArrayList<String> oldMasterBankAccs = new ArrayList<String>();
-        oldMasterBankAccs.add("12345 John Smith           A 26648.26 001");
-        oldMasterBankAccs.add("56789 John                 B 09714.00 000");
-        oldMasterBankAccs.add("54321 Major Cream          A 48566.00 020");
-        oldMasterBankAccs.add("54320 Test Constraint      B 00001.00 000");
+        ArrayList<String> oldMasterBankAccs = readPrevious.ReadMasterBankAccs();
+        // Merged Transaction File
+        ArrayList<String> mergedTransactions = readPrevious.ReadMergedTransactions();
 
-        // Merge Transaction file
-        ArrayList<String> mergedTransactions = new ArrayList<String>();
-        mergedTransactions.add("06 Major Cream          54321 00010.50 CR");
-        mergedTransactions.add("02 John                 56789 00001.00 CR");
-        mergedTransactions.add("02                      54321 00001.00 DR");
-        mergedTransactions.add("02 Test Constraint      54320 00002.00 CR");
-        mergedTransactions.add("05 Test Constraint      54320 00000.00 00");
-        mergedTransactions.add("00                      00000 00000.00 00");
-
-        // apply transaction on to old master bank accs
+        // Apply transaction on to old master bank accs
         ApplyTransaction apply = new ApplyTransaction(oldMasterBankAccs, mergedTransactions);
         // New master bank account
         ArrayList<String> newMasterBankAccs = apply.Apply();
 
-        System.out.println(newMasterBankAccs);
-
+        // Create new Master Bank Account file and Current Bank Account File
         ExportMaster export = new ExportMaster();
         export.Export(newMasterBankAccs);
 
