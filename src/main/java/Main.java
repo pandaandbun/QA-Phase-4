@@ -3,7 +3,7 @@ import java.util.ArrayList;
 // To run:
 // ./gradlew clean      ----> clean the folder
 // ./gradlew build      ----> compile
-// ./gradlew run        ----> run the code
+// ./gradlew run --args="mastertbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
 
 // Input:
 // masterbankaccountfile.txt
@@ -28,21 +28,25 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        // Read Previous Files
-        ReadPrevious readPrevious = new ReadPrevious();
-        // Old Master bank acc
-        ArrayList<String> oldMasterBankAccs = readPrevious.ReadMasterBankAccs();
-        // Merged Transaction File
-        ArrayList<String> mergedTransactions = readPrevious.ReadMergedTransactions();
+        if (args.length != 2) {
+            System.err.println("ERROR - Please pass master and merged. [./gradlew run --args=\"mastertbankaccountfile.txt mergedtransactionsfile.txt\"]");
+        } else {
+             // Read Previous Files
+            ReadPrevious readPrevious = new ReadPrevious();
+            // Old Master bank acc
+            ArrayList<String> oldMasterBankAccs = readPrevious.ReadMasterBankAccs(args[0]);
+            // Merged Transaction File
+            ArrayList<String> mergedTransactions = readPrevious.ReadMergedTransactions(args[1]);
 
-        // Apply transaction on to old master bank accs
-        ApplyTransaction apply = new ApplyTransaction(oldMasterBankAccs, mergedTransactions);
-        // New master bank account
-        ArrayList<String> newMasterBankAccs = apply.Apply();
+            // Apply transaction on to old master bank accs
+            ApplyTransaction apply = new ApplyTransaction(oldMasterBankAccs, mergedTransactions);
+            // New master bank account
+            ArrayList<String> newMasterBankAccs = apply.Apply();
 
-        // Create new Master Bank Account file and Current Bank Account File
-        ExportMaster export = new ExportMaster();
-        export.Export(newMasterBankAccs);
+            // Create new Master Bank Account file and Current Bank Account File
+            ExportMaster export = new ExportMaster();
+            export.Export(newMasterBankAccs);
+        }
 
     }
 }

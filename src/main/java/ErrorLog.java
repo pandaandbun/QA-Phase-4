@@ -5,7 +5,10 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+// Handles the error logs
 public class ErrorLog {
+
+    // Error Type
     enum ErrorType {
         CONSTRAINT, FATAL
     };

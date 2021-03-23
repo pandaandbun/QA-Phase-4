@@ -11,13 +11,13 @@ public class ReadPrevious {
 	private ArrayList<String> mergedTransactions = new ArrayList<String>();
 
 	// Read Master Bank Accs file
-	public ArrayList<String> ReadMasterBankAccs() {
+	public ArrayList<String> ReadMasterBankAccs(String fileName) {
 		BufferedReader bufferReader = null;
 		try {
 			String strCurrentLine;
 
-			// Read the file
-			bufferReader = new BufferedReader(new FileReader("mastertbankaccountfile.txt"));
+			// Read the file "mastertbankaccountfile.txt"
+			bufferReader = new BufferedReader(new FileReader(fileName));
 
 			// Parse the file
 			while ((strCurrentLine = bufferReader.readLine()) != null) {
@@ -40,12 +40,13 @@ public class ReadPrevious {
 	}
 
 	// Read Merged Transaction File
-	public ArrayList<String> ReadMergedTransactions() {
+	public ArrayList<String> ReadMergedTransactions(String fileName) {
 		BufferedReader bufferReader = null;
 		try {
 			String strCurrentLine;
-			// Read the file
-			bufferReader = new BufferedReader(new FileReader("mergedtransactionsfile.txt"));
+
+			// Read the file "mergedtransactionsfile.txt"
+			bufferReader = new BufferedReader(new FileReader(fileName));
 
 			// Parse the file
 			while ((strCurrentLine = bufferReader.readLine()) != null) {
