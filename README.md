@@ -1,8 +1,12 @@
 # QA-Phase-4
 
-# Tran Tien Anh Ta  100648707
-# Anddy Pena        100638067
-# Samatar Mumin     100637553     
-# Cheyenne Carrier  
+Tran Tien Anh Ta  100648707
 
-# ./gradlew run --args="mastertbankaccountfile.txt mergedtransactionsfile.txt"
+Anddy Pena        100638067
+
+Samatar Mumin     100637553     
+
+Cheyenne Carrier  
+
+# Running
+./gradlew run --args="mastertbankaccountfile.txt mergedtransactionsfile.txt"
