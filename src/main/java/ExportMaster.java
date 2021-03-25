@@ -3,8 +3,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+// import java.time.LocalDateTime;
+// import java.time.format.DateTimeFormatter;
 
 /*
 Master File Account Files (42 chars + newline)
@@ -25,22 +25,28 @@ Same as master but without TTTT
 public class ExportMaster {
     private BufferedWriter out;
     private ArrayList<String> merged_transactions;
-    private String dateTime;
+    // private String dateTime;
 
     public ExportMaster() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
-        this.dateTime = localDateTime.format(dtf);
+        // LocalDateTime localDateTime = LocalDateTime.now();
+        // DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE;
+        // this.dateTime = localDateTime.format(dtf);
         CreateMasterAndCurrentBankAccountFile();
     }
 
     private Boolean CreateMasterAndCurrentBankAccountFile() {
 
         try {
-            File f = new File("masterbankaccountfile" + dateTime + ".txt");
+            // File f = new File("masterbankaccountfile" + dateTime + ".txt");
+            // f.createNewFile();
+
+            // File file = new File("currentbankaccountfile" + dateTime + ".txt");
+            // file.createNewFile();
+
+            File f = new File("masterbankaccountfile.txt");
             f.createNewFile();
 
-            File file = new File("currentbankaccountfile" + dateTime + ".txt");
+            File file = new File("currentbankaccountfile.txt");
             file.createNewFile();
 
         } catch (IOException e) {
@@ -62,7 +68,9 @@ public class ExportMaster {
 
         // Master File
         try {
-            out = new BufferedWriter(new FileWriter("masterbankaccountfile" + this.dateTime + ".txt"));
+            // out = new BufferedWriter(new FileWriter("masterbankaccountfile" + this.dateTime + ".txt"));
+            out = new BufferedWriter(new FileWriter("masterbankaccountfile.txt"));
+
             for (String s : merged_transactions) {
                 out.write(s + "\n");
                 out.flush();
@@ -81,7 +89,9 @@ public class ExportMaster {
 
         // Bank Account File
         try {
-            out = new BufferedWriter(new FileWriter("currentbankaccountfile" + dateTime + ".txt"));
+            // out = new BufferedWriter(new FileWriter("currentbankaccountfile" + dateTime + ".txt"));
+            out = new BufferedWriter(new FileWriter("currentbankaccountfile.txt"));
+
             for (String s : merged_transactions) {
 
                 // Print only account not deleted

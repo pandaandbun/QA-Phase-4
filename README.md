@@ -9,4 +9,8 @@ Samatar Mumin     100637553
 Cheyenne Carrier  
 
 # Running
-./gradlew run --args="mastertbankaccountfile.txt mergedtransactionsfile.txt"
+./gradlew run --args="masterbankaccountfile.txt mergedtransactionsfile.txt"
+
+OR 
+
+./gradlew run --args="oldmasterbankaccountfile.txt mergedtransactionsfile.txt"

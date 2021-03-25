@@ -3,7 +3,8 @@ import java.util.ArrayList;
 // To run:
 // ./gradlew clean      ----> clean the folder
 // ./gradlew build      ----> compile
-// ./gradlew run --args="mastertbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
+// ./gradlew run --args="masterbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
+// ./gradlew run --args="oldmasterbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
 
 // Input:
 // masterbankaccountfile.txt
