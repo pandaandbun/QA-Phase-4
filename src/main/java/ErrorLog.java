@@ -29,8 +29,8 @@ public class ErrorLog {
 
     // Logs an error to the console and to a file (WIP)
     public void LogError(String errCode, String errString) {
-        System.err.println(errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
-        outErr.println(errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
+        System.err.println("ERROR: " + errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
+        outErr.println("ERROR: " + errCode + " -" + transactionCodes.getCodeDescString(errCode) + " - " + errString);
         outErr.flush();
     }
 

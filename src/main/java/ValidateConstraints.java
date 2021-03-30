@@ -8,6 +8,9 @@ public class ValidateConstraints {
     // check if balance is negative
     public boolean validateBalance(String transCode, String acc) {
 
+        // Validate boolean
+        boolean validated = true;
+
         // get account info
         String bankAccNum = acc.substring(0, 5);
         String bankBalance = acc.substring(29, 37);
@@ -16,10 +19,10 @@ public class ValidateConstraints {
         if (bankBalance.contains("-")) {
             // System.err.printf("ERROR - CONSTRAINT - %s BALANCE BELOW 0\n", bankAccNum);
             errorLog.LogError(transCode, bankAccNum + " balance below 0");
-            return false;
+            validated = false;
         }
 
-        return true;
+        return validated;
     }
 
     // Check if acc is unique
@@ -35,7 +38,8 @@ public class ValidateConstraints {
             String otherBankAccNum = currentMasterBankAccs.get(i).substring(0, 5);
 
             if (bankAccNum.equals(otherBankAccNum)) {
-                // System.err.printf("ERROR - CONSTRAINT - %s ACCOUNT IS NOT UNIQUE\n", bankAccNum);
+                // System.err.printf("ERROR - CONSTRAINT - %s ACCOUNT IS NOT UNIQUE\n",
+                // bankAccNum);
                 errorLog.LogError(transCode, bankAccNum + " is not a unique account");
                 return false;
             }

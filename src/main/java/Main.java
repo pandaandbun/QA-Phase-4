@@ -30,9 +30,10 @@ public class Main {
     public static void main(String[] args) {
 
         if (args.length != 2) {
-            System.err.println("ERROR - Please pass master and merged. [./gradlew run --args=\"mastertbankaccountfile.txt mergedtransactionsfile.txt\"]");
+            System.err.println(
+                    "ERROR - Please pass master and merged. [./gradlew run --args=\"masterbankaccountfile.txt mergedtransactionsfile.txt\"]");
         } else {
-             // Read Previous Files
+            // Read Previous Files
             ReadPrevious readPrevious = new ReadPrevious();
             // Old Master bank acc
             ArrayList<String> oldMasterBankAccs = readPrevious.ReadMasterBankAccs(args[0]);
