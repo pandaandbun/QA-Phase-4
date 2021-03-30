@@ -14,3 +14,6 @@ Cheyenne Carrier
 OR 
 
 ./gradlew run --args="oldmasterbankaccountfile.txt mergedtransactionsfile.txt"
+
+# Run Test
+./gradlew clean test
