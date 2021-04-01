@@ -4,6 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 // Statement Coverage for ValidateConstraints - validateBalance
 // validateBalance has 1 Test Case: 
 //      T1: Negative Balance - 00361 George Ty            A -39154.9 001
+
+// PATH: src/main/java/ValidateConstraints.java
+// METHOD: validateBalance
+
+// to run: ./gradlew clean test
+
 public class StatementCoverage {
 
     // T1: Test if the method works with negative balance

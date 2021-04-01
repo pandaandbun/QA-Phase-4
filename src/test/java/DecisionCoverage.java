@@ -9,6 +9,12 @@ import java.util.ArrayList;
 // T2: EOF False
 // T3: Create True
 // T4: Create False
+
+// PATH: src/main/java/ApplyTransaction.java
+// METHOD: Apply
+
+// to run: ./gradlew clean test
+
 public class DecisionCoverage {
 
     // Old master bank accs and Merge transactions

@@ -3,12 +3,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-// Decision Coverage for ApplyTransaction - Apply Method
+// Loop Coverage for ApplyTransaction - Apply Method
 // Test Cases:
 // T1: None
 // T2: Once
 // T3: Twice
 // T4: Many
+
+// PATH: src/main/java/ApplyTransaction.java
+// METHOD: Apply
+
+// to run: ./gradlew clean test
+
 public class LoopCoverage {
 
     // Old master bank accs and Merge transactions

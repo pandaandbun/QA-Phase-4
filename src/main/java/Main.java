@@ -6,6 +6,8 @@ import java.util.ArrayList;
 // ./gradlew run --args="masterbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
 // ./gradlew run --args="oldmasterbankaccountfile.txt mergedtransactionsfile.txt"       ----> run the code
 
+// To run tests: ./gradlew clean test
+
 // Input:
 // masterbankaccountfile.txt
 // mergedtransactionsfile.txt
