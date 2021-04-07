@@ -1,3 +1,4 @@
-54320 Test Constraint      A 00000.00 000
-54322 Test Create          A 00000.00 000
+00001 Jack Smith           A 01657.67 000
+00002 John Smith           A 00010.67 000
+00003 James Smith          A 00500.00 000
 00000 END OF FILE          D 00000.00 000

@@ -58,18 +58,27 @@ public class ApplyTransaction {
     // Create New Account
     private void createBankAcc(String transCode, String transName, String transAccNum, String transMisc,
             String transaction) {
-        // add new acc to list
-        String bankStatus = "A";
-        String bankBalanceString = transaction.substring(30, 38);
-        String bankNumOfTransString = "000";
-        String newBankAcc = transAccNum + " " + transName + " " + bankStatus + " " + bankBalanceString + " "
-                + bankNumOfTransString;
+        
+        boolean bankAccPassed = false;
+        int bankAccNumInt = Integer.parseInt(transAccNum);
+        String newBankAcc = "";
 
-        // Validate the new account follow constraints
-        boolean bankAccPassed = validateConstraints.validateCreate(transCode, newBankAcc, oldMasterBankAccs);
-        if (bankAccPassed) {
-            oldMasterBankAccs.add(0, newBankAcc);
+        // Loop until the new accout have a valid account number
+        while (!bankAccPassed) {
+            String bankAccNumString = String.format("%5s", bankAccNumInt).replace(' ', '0');
+            String bankStatus = "A";
+            String bankBalanceString = transaction.substring(30, 38);
+            String bankNumOfTransString = "000";
+            newBankAcc = bankAccNumString + " " + transName + " " + bankStatus + " " + bankBalanceString + " "
+                    + bankNumOfTransString;
+
+            // Validate the new account follow constraints
+            bankAccPassed = validateConstraints.validateCreate(transCode, newBankAcc, oldMasterBankAccs);
+            bankAccNumInt += 1;
         }
+
+        // add new acc to list
+        oldMasterBankAccs.add(0, newBankAcc);
     }
 
     // Find Bank Account that match with the transaction
@@ -95,25 +104,58 @@ public class ApplyTransaction {
                     String transCodeString = transactionCodes.getCodeDescString(transCode);
 
                     // The actual application
+                    // Paybill, Withdrawal
                     if (transCodeString.equals("Paybill") || transCodeString.equals("Withdrawal")) {
                         bankBalance -= transBalance;
-                    } else if (transCodeString.equals("Deposit")) {
+                    } 
+                    
+                    // Deposit
+                    else if (transCodeString.equals("Deposit")) {
                         bankBalance += transBalance;
-                    } else if (transCodeString.equals("Transfer")) {
+                    } 
+                    
+                    // Tramsfer
+                    else if (transCodeString.equals("Transfer")) {
                         if (transMisc.equals("CR")) {
                             bankBalance -= transBalance;
                         } else if (transMisc.equals("DR")) {
                             bankBalance += transBalance;
                         } else {
-                            errorLog.LogError(transCode, "Something wrong with CR/DR");
+                            errorLog.LogError(transCode, "Account " + transAccNum + ": Something wrong with CR/DR");
                         }
-                    } else if (transCodeString.equals("Disable")) {
-                        bankStatus = "D";
-                    } else if (transCodeString.equals("Delete")) {
+                    } 
+                    
+                    // Disable
+                    else if (transCodeString.equals("Disable")) {
+                        if (bankStatus.equals("A")) {
+                            bankStatus = "C";
+                        } else if (bankStatus.equals("B")) {
+                            bankStatus = "D";
+                        } else {
+                            errorLog.LogError(transCode, "Account " + transAccNum + ": Status code is not A or B");
+                        }
+                    } 
+                    
+                    // Change Plan
+                    else if (transCodeString.equals("ChangePlan")) {
+                        if (bankStatus.equals("A")) {
+                            bankStatus = "B";
+                        } else if (bankStatus.equals("B")) {
+                            bankStatus = "A";
+                        } else {
+                            errorLog.LogError(transCode, "Account " + transAccNum + ": Status code is not A or B");
+                        }
+                    } 
+                    
+                    // Delete
+                    else if (transCodeString.equals("Delete")) {
                         // mergedTransactions.remove(i);
                         // break;
                         bankStatus = "E";
-                    } else {
+                    } 
+                    
+                    // Error
+                    else {
                         // System.out.println("ERROR - SOMETHING WRONG HERE");
                         errorLog.LogError(transCode, "Transaction type cant be read");
                         break;
@@ -140,6 +182,12 @@ public class ApplyTransaction {
                     boolean bankAccPassed = validateConstraints.validateBalance(transCode, newBankAcc);
                     if (bankAccPassed) {
                         oldMasterBankAccs.set(j, newBankAcc);
+
+                        // Transfer - Find the Account receiving the money
+                        // we put the code here to verify that the account transferring is valid before transferring the money
+                        if (transCodeString.equals("Transfer") && transMisc.equals("CR")) {
+                            findBankAcc(transCode, "", transName.trim(), transBalance, "DR");
+                        }
                     }
 
                     break bankAccFound;

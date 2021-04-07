@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        if (args.length != 2) {
+        if (args.length < 2) {
             System.err.println(
                     "ERROR - Please pass master and merged. [./gradlew run --args=\"masterbankaccountfile.txt mergedtransactionsfile.txt\"]");
         } else {
@@ -48,7 +48,13 @@ public class Main {
             ArrayList<String> newMasterBankAccs = apply.Apply();
 
             // Create new Master Bank Account file and Current Bank Account File
-            ExportMaster export = new ExportMaster();
+            ExportMaster export;
+            if (args.length == 4) {
+                export = new ExportMaster(args[2], args[3]);
+            } else {
+                export = new ExportMaster();
+            }
+
             export.Export(newMasterBankAccs);
         }
 
